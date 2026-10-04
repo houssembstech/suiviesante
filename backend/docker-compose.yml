@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./backend
+    container_name: dawini-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DJANGO_DEBUG=True
+      - MONGO_URI=mongodb+srv://houssembstech_db_user:h1kcmNzo1MClIp1B@suiviesante.txit8oa.mongodb.net/dawini_db?retryWrites=true&w=majority&appName=suiviesante
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  frontend:
+    build: ../frontend
+    container_name: dawini-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../frontend:/app
+    depends_on:
+      - backend
+
+
+  redis:
+    image: redis:latest
+    container_name: dawini-redis
+    ports:
+      - "6379:6379"
+
