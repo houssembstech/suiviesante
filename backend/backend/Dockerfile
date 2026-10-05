@@ -1,5 +1,5 @@
 # --- Dockerfile : backend/Dockerfile ---
-FROM python:3.11-slim
+FROM python:3.11-slim-bullseye
 
 # Crée le dossier de travail
 WORKDIR /app
