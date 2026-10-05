@@ -1290,7 +1290,7 @@ def clinic_doctors_view(request, clinic_id):
     doctors = list(collections['clinic_doctors'].find({"clinic_id": ObjectId(clinic_id)}))
     return Response([normalize_mongo_doc(d) for d in doctors])
 # views.py
-import pdfkit
+
 from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.utils import timezone
@@ -1345,7 +1345,7 @@ from django.http import HttpResponse
 from pymongo import MongoClient
 from bson import ObjectId
 from datetime import datetime
-import pdfkit  # tu l'as déjà installé
+
 
 # Connexion MongoDB (déjà dans mongo_models.py)
 from .mongo_models import collections
