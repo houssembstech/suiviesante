@@ -1496,7 +1496,7 @@ def clinic_invoice_pdf_view(request, clinic_id, invoice_id):
 
     clinic = collections['clinics'].find_one({"_id": ObjectId(clinic_id)})
 
-    html = f"""
+    html_string = f"""
     <!DOCTYPE html>
     <html><head><meta charset="utf-8"><style>
       body {{ font-family: DejaVu Sans, Arial; direction: rtl; text-align: right; padding: 40px; }}
@@ -1522,8 +1522,13 @@ def clinic_invoice_pdf_view(request, clinic_id, invoice_id):
     </body></html>
     """
 
-    pdf = pdfkit.from_string(html, False)
-    response = HttpResponse(pdf, content_type='application/pdf')
+    from xhtml2pdf import pisa
+    import io
+    
+    result = io.BytesIO()
+    pisa.pisaDocument(io.BytesIO(html_string.encode('UTF-8')), result)
+
+    response = HttpResponse(result.getvalue(), content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{invoice["invoice_number"]}.pdf"'
     return response
 

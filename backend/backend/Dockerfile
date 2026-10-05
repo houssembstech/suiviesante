@@ -1,5 +1,5 @@
 # --- Dockerfile : backend/Dockerfile ---
-FROM python:3.11-slim-bullseye
+FROM python:3.11-slim
 
 # Crée le dossier de travail
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt /app/
 
 # Installation des dépendances système et Python
-RUN apt-get update && apt-get install -y build-essential libpq-dev gcc wkhtmltopdf && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y build-essential libpq-dev gcc && rm -rf /var/lib/apt/lists/*
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copie le code Django
