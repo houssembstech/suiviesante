@@ -13,3 +13,4 @@ channels-redis
 python-dotenv
 Pillow
 bcrypt
+requests
